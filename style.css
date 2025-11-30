@@ -1,0 +1,263 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+/* Tombol Music Control */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #d81b60;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+  transform: scale(1.1);
+  background: #d81b60;
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+.music-icon {
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.music-btn.muted .music-icon {
+  animation: none;
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.instruction {
+  position: absolute;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: rgba(255, 0, 0, 0.7);
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fce4ec;
+  transition: background-color 2s;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  transition: all 2s ease;
+  z-index: 15;
+  cursor: pointer;
+}
+
+.heart img {
+  width: clamp(50px, 15vw, 80px);
+  height: auto;
+  animation: beat 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+#messageState {
+  display: none;
+}
+
+.message {
+  padding: 20px;
+  background-color: #fff;
+  font-size: clamp(14px, 4vw, 17px);
+  text-align: justify;
+  line-height: 1.6em;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 0;
+  opacity: 0;
+  transition: all 2s ease;
+}
+
+.message::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.message.open {
+  height: 85vh;
+  opacity: 1;
+  padding: 20px;
+}
+
+.message.closed {
+  height: 0;
+  opacity: 0;
+  padding: 0 20px;
+}
+
+.message h1 {
+  font-family: "Cinzel", serif;
+  font-size: clamp(24px, 7vw, 40px);
+  letter-spacing: 1.2px;
+  margin-bottom: 15px;
+  color: #d81b60;
+}
+
+.message p {
+  margin-bottom: 15px;
+}
+
+.message span {
+  display: block;
+}
+
+.sincere {
+  text-align: left;
+  font-family: "Cinzel", serif;
+  font-size: clamp(12px, 3.5vw, 14px);
+  line-height: 1.4em;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.sincere p {
+  margin: 5px 0;
+}
+
+.sincere p:first-child {
+  font-weight: bold;
+}
+
+.heart.moved {
+  top: 90%;
+  transform: translate(-50%, -100%);
+}
+
+.container.opened {
+  background-color: #f48fb1;
+}
+
+@keyframes beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15);
+  }
+  30% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+/* Responsive untuk HP kecil */
+@media (max-width: 480px) {
+  .music-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .instruction {
+    top: 30%;
+    font-size: 1.3rem;
+    padding: 0 20px;
+  }
+
+  .message {
+    width: 95%;
+    padding: 15px;
+    max-height: 80vh;
+  }
+
+  .message.open {
+    height: 80vh;
+    padding: 15px;
+  }
+
+  .heart.moved {
+    top: 92%;
+  }
+}
+
+/* Landscape mode untuk HP */
+@media (max-height: 500px) and (orientation: landscape) {
+  .instruction {
+    top: 25%;
+    font-size: 1rem;
+  }
+
+  .message {
+    max-height: 75vh;
+    width: 70%;
+  }
+
+  .message.open {
+    height: 75vh;
+  }
+
+  .heart.moved {
+    top: 85%;
+  }
+}
